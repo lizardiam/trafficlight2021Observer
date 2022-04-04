@@ -1,9 +1,11 @@
 package trafficlight.gui;
-
+import trafficlight.states.State;
 
 import java.awt.*;
 
-public class TrafficLight extends Light {
+//concrete observer
+
+public class TrafficLight extends Light implements Observer{
 
     TrafficLight(Color color) {
         super(color);
@@ -18,5 +20,8 @@ public class TrafficLight extends Light {
         return isOn;
     }
 
-    //TODO implement a part of the pattern here
+    @Override
+    public void update(State state) {
+        turnOn(!isOn());
+    }
 }
