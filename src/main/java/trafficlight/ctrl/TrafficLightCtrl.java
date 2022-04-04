@@ -1,7 +1,9 @@
 package trafficlight.ctrl;
-
+import trafficlight.gui.TrafficLight;
 import trafficlight.gui.TrafficLightGui;
 import trafficlight.states.State;
+
+//repository: https://github.com/lizardiam/trafficlight2021Observer
 
 public class TrafficLightCtrl {
 
@@ -19,6 +21,15 @@ public class TrafficLightCtrl {
 
     private boolean doRun = true;
 
+    private static TrafficLightCtrl instance = new TrafficLightCtrl();
+
+    public static TrafficLightCtrl getInstance(){
+        if (instance == null){
+            instance = new TrafficLightCtrl();
+        }
+        return instance;
+    }
+
     public TrafficLightCtrl() {
         super();
         initStates();
@@ -33,7 +44,6 @@ public class TrafficLightCtrl {
             public State getNextState() {
                 previousState = currentState;
 
-                //TODO useful to update the current state and the old one
                 yellowState.notifyObserver(yellowState);
                 notifyObserver(this);
 
@@ -50,7 +60,6 @@ public class TrafficLightCtrl {
             public State getNextState() {
                 previousState = currentState;
 
-                //TODO useful to update the current state and the old one
                 yellowState.notifyObserver(yellowState);
                 notifyObserver(this);
 
@@ -68,7 +77,6 @@ public class TrafficLightCtrl {
                 if (previousState.equals(greenState)) {
                     previousState = currentState;
 
-                    //TODO useful to update the current state and the old one
                     redState.notifyObserver(redState);
                     notifyObserver(this);
 
@@ -76,7 +84,6 @@ public class TrafficLightCtrl {
                 }else {
                     previousState = currentState;
 
-                    //TODO useful to update the current state and the old one
                     greenState.notifyObserver(greenState);
                     notifyObserver(this);
 
